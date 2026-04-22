@@ -70,41 +70,41 @@ export default async function Home() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {featuredProducts.map((prod) => (
+          {featuredProducts.filter((product) => product?.id).map((product) => (
             <div
-              key={prod.id}
+              key={product.id}  
               className="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden"
             >
               {/* Image Container with Zoom Effect */}
               <div className="relative overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 h-64 flex items-center justify-center p-6">
                 <img
-                  src={prod.image}
-                  alt={prod.title}
+                  src={product.image}
+                  alt={product.title}
                   className="h-full object-contain transform group-hover:scale-105 transition-transform duration-500"
                 />
                 {/* Category Badge */}
                 <span className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-gray-800 text-xs font-medium px-3 py-1 rounded-full shadow-sm border border-gray-100">
-                  {prod.category}
+                  {product.category}
                 </span>
               </div>
 
               {/* Product Details */}
               <div className="p-6">
                 <h3 className="text-lg font-semibold text-gray-900 line-clamp-1 group-hover:text-blue-600 transition-colors">
-                  {prod.title}
+                  {product.title}
                 </h3>
                 
                 <p className="text-sm text-gray-500 mt-2 line-clamp-2 leading-relaxed">
-                  {prod.description}
+                  {product.description}
                 </p>
 
                 {/* Price and Action */}
                 <div className="mt-5 flex items-center justify-between">
                   <div>
-                    <span className="text-2xl font-bold text-gray-900">${prod.price}</span>
+                    <span className="text-2xl font-bold text-gray-900">${product.price}</span>
                     <span className="text-sm text-gray-400 ml-1">USD</span>
                   </div>
-                  <ViewButton key={prod.id} id={prod.id} />
+                  <ViewButton key={product.id} id={product.id} />
                 </div>
               </div>
             </div>
