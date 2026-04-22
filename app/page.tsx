@@ -65,7 +65,7 @@ export default async function Home() {
             <div className="w-20 h-1 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full mt-4"></div>
           </div>
           <span className="text-sm text-gray-500 hover:text-gray-700 transition-colors cursor-pointer mt-4 md:mt-0">
-            View all products →
+            <Link href="/products">View all products →</Link>
           </span>
         </div>
 
@@ -104,7 +104,7 @@ export default async function Home() {
                     <span className="text-2xl font-bold text-gray-900">${prod.price}</span>
                     <span className="text-sm text-gray-400 ml-1">USD</span>
                   </div>
-                  <ViewButton />
+                  <ViewButton key={prod.id} id={prod.id} />
                 </div>
               </div>
             </div>

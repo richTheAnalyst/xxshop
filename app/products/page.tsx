@@ -69,7 +69,7 @@ export default async function Users() {
                     </span>
                     <span className="text-xs text-gray-400 ml-1">USD</span>
                   </div>
-                  <ViewButton />
+                  <ViewButton key={prod.id} id={prod.id} />
                 </div>
               </div>
             </div>

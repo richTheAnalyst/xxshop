@@ -1,5 +1,7 @@
 'use client';
 
+import Link from "next/link";
+
 export default function Footer() {
     return (
         <footer className="bg-gray-50 border-t border-gray-200 mt-12">
@@ -17,17 +19,17 @@ export default function Footer() {
             <div>
               <h4 className="font-semibold text-gray-900 mb-4">Shop</h4>
               <ul className="space-y-2 text-sm text-gray-500">
-                <li><a href="#" className="hover:text-gray-900 transition">All Products</a></li>
-                <li><a href="#" className="hover:text-gray-900 transition">New Arrivals</a></li>
-                <li><a href="#" className="hover:text-gray-900 transition">Best Sellers</a></li>
+                <li><Link href="/products" className="hover:text-gray-900 transition">All Products</Link></li>
+                <li><Link href="/new-arrivals" className="hover:text-gray-900 transition">New Arrivals</Link></li>
+                <li><Link href="/best-sellers" className="hover:text-gray-900 transition">Best Sellers</Link></li>
               </ul>
             </div>
             <div>
               <h4 className="font-semibold text-gray-900 mb-4">Support</h4>
               <ul className="space-y-2 text-sm text-gray-500">
-                <li><a href="#" className="hover:text-gray-900 transition">FAQ</a></li>
-                <li><a href="#" className="hover:text-gray-900 transition">Shipping Info</a></li>
-                <li><a href="#" className="hover:text-gray-900 transition">Returns</a></li>
+                <li><Link href="/faq" className="hover:text-gray-900 transition">FAQ</Link></li>
+                <li><Link href="/shipping" className="hover:text-gray-900 transition">Shipping Info</Link></li>
+                <li><Link href="/returns" className="hover:text-gray-900 transition">Returns</Link></li>
               </ul>
             </div>
             <div>
@@ -46,7 +48,7 @@ export default function Footer() {
             </div>
           </div>
           <div className="border-t border-gray-200 mt-10 pt-8 text-center text-sm text-gray-400">
-            © 2026 XX Shop. All rights reserved.
+            &copy; {new Date().getFullYear()} XX Shop. All rights reserved.
           </div>
         </div>
       </footer>
