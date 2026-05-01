@@ -1,5 +1,5 @@
 import { getProducts } from "../lib/api";
-import ViewButton from "../components/button";
+import Link from "next/link";
 
 type product = {
   id: number;
@@ -34,45 +34,40 @@ export default async function Users() {
       {/* Products Grid */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
-          {product.map((prod) => (
-            <div
-              key={prod.id}
-              className="group relative bg-white dark:bg-gray-900 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 ease-out border border-gray-100 dark:border-gray-800 hover:border-gray-200 dark:hover:border-gray-700 flex flex-col overflow-hidden"
-            >
-
+          {product.map((product) => (
+            <Link href={`/products/${product.id}`} key={product.id} className="group relative bg-white dark:bg-gray-900 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 ease-out border border-gray-100 dark:border-gray-800 hover:border-gray-200 dark:hover:border-gray-700 flex flex-col overflow-hidden"> 
               <div className="relative bg-gray-50 dark:bg-gray-800 flex items-center justify-center h-64 p-4 overflow-hidden">
                 <img
-                  src={prod.image}
-                  alt={prod.title}
+                  src={product.image}
+                  alt={product.title}
                   className="h-full w-full object-contain transform group-hover:scale-105 transition-transform duration-500"
                 />
 
                 <span className="absolute top-3 left-3 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm text-gray-700 dark:text-gray-200 text-xs font-medium px-2.5 py-1 rounded-full shadow-sm border border-gray-100 dark:border-gray-700">
-                  {prod.category}
+                  {product.category}
                 </span>
               </div>
 
              
               <div className="p-5 flex flex-col flex-grow">
                 <h3 className="text-base font-semibold text-gray-800 dark:text-gray-100 line-clamp-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition">
-                  {prod.title}
+                  {product.title}
                 </h3>
 
                 <p className="text-sm text-gray-500 dark:text-gray-400 mt-2 line-clamp-2 leading-relaxed">
-                  {prod.description}
+                  {product.description}
                 </p>
 
                 <div className="mt-5 flex items-center justify-between pt-2 border-t border-gray-50 dark:border-gray-800">
                   <div>
                     <span className="text-xl font-bold text-gray-900 dark:text-white">
-                      ${prod.price}
+                      ${product.price}
                     </span>
                     <span className="text-xs text-gray-400 ml-1">USD</span>
                   </div>
-                  <ViewButton key={prod.id} id={prod.id} />
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
         {product.length === 0 && (

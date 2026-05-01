@@ -2,7 +2,7 @@ import { getProducts } from "./lib/api";
 import ViewButton from "./components/button";
 import Link from "next/link";
 
-type product = {
+type Product = {
   id: number;
   title: string;
   price: number;
@@ -18,8 +18,8 @@ export default async function Home() {
   return (
     <div className="bg-gray-50 min-h-screen">
       
-      {/* Hero  */}
-           <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-indigo-50">
+      {/* Hero Section */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-indigo-50">
         <div className="absolute inset-0 opacity-20">
           <div className="absolute top-20 left-10 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl animate-pulse"></div>
           <div className="absolute bottom-20 right-10 w-96 h-96 bg-indigo-300 rounded-full mix-blend-multiply filter blur-3xl animate-pulse delay-1000"></div>
@@ -33,7 +33,6 @@ export default async function Home() {
               </span>
               <span className="text-xs font-medium text-gray-700">Free shipping worldwide</span>
             </div>
-            <span className="text-xs text-gray-500"> abeg na lie oo...if u buy ur money wont come again</span>
 
             <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight">
               <span className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent">Welcome to</span>
@@ -45,10 +44,10 @@ export default async function Home() {
               Discover curated collections designed to elevate your everyday life.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-             <Link href= "/products" className="px-8 py-3 bg-gray-900 text-white hover:bg-gray-600 rounded-xl font-medium border border-gray-200 shadow-sm hover:shadow-md transform hover:-translate-y-0.5 transition-all duration-200">
+              <Link href="/products" className="px-8 py-3 bg-gray-900 text-white hover:bg-gray-600 rounded-xl font-medium border border-gray-200 shadow-sm hover:shadow-md transform hover:-translate-y-0.5 transition-all duration-200">
                 Shop Now
               </Link>
-              <Link href= "/products" className="px-8 py-3 bg-white text-gray-800 hover:bg-gray-100 rounded-xl font-medium border border-gray-200 shadow-sm hover:shadow-md transform hover:-translate-y-0.5 transition-all duration-200">
+              <Link href="/products" className="px-8 py-3 bg-white text-gray-800 hover:bg-gray-100 rounded-xl font-medium border border-gray-200 shadow-sm hover:shadow-md transform hover:-translate-y-0.5 transition-all duration-200">
                 Explore Products
               </Link>
             </div>
@@ -56,8 +55,8 @@ export default async function Home() {
         </div>
       </section>
 
-{/* Featured slice */}
-     <section className="max-w-6xl mx-auto px-6 py-16 md:py-24">
+      {/* Featured Products Section */}
+      <section className="max-w-6xl mx-auto px-6 py-16 md:py-24">
         <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-12">
           <div>
             <span className="text-sm font-semibold text-blue-600 tracking-wide uppercase">Curated Selection</span>
@@ -71,48 +70,44 @@ export default async function Home() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {featuredProducts.filter((product) => product?.id).map((product) => (
-            <div
-              key={product.id}  
-              className="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden"
-            >
-              {/* Image Container with Zoom Effect */}
-              <div className="relative overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 h-64 flex items-center justify-center p-6">
-                <img
-                  src={product.image}
-                  alt={product.title}
-                  className="h-full object-contain transform group-hover:scale-105 transition-transform duration-500"
-                />
-                {/* Category Badge */}
-                <span className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-gray-800 text-xs font-medium px-3 py-1 rounded-full shadow-sm border border-gray-100">
-                  {product.category}
-                </span>
-              </div>
+            <Link href={`/products/${product.id}`} key={product.id}>
+              <div className="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden h-full cursor-pointer">
+                {/* Image Container with Zoom Effect */}
+                <div className="relative overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 h-64 flex items-center justify-center p-6">
+                  <img
+                    src={product.image}
+                    alt={product.title}
+                    className="h-full object-contain transform group-hover:scale-105 transition-transform duration-500"
+                  />
+                  {/* Category Badge */}
+                  <span className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-gray-800 text-xs font-medium px-3 py-1 rounded-full shadow-sm border border-gray-100">
+                    {product.category}
+                  </span>
+                </div>
 
-              {/* Product Details */}
-              <div className="p-6">
-                <h3 className="text-lg font-semibold text-gray-900 line-clamp-1 group-hover:text-blue-600 transition-colors">
-                  {product.title}
-                </h3>
-                
-                <p className="text-sm text-gray-500 mt-2 line-clamp-2 leading-relaxed">
-                  {product.description}
-                </p>
+                {/* Product Details */}
+                <div className="p-6">
+                  <h3 className="text-lg font-semibold text-gray-900 line-clamp-1 group-hover:text-blue-600 transition-colors">
+                    {product.title}
+                  </h3>
+                  
+                  <p className="text-sm text-gray-500 mt-2 line-clamp-2 leading-relaxed">
+                    {product.description}
+                  </p>
 
-                {/* Price and Action */}
-                <div className="mt-5 flex items-center justify-between">
-                  <div>
-                    <span className="text-2xl font-bold text-gray-900">${product.price}</span>
-                    <span className="text-sm text-gray-400 ml-1">USD</span>
+                  {/* Price */}
+                  <div className="mt-5 flex items-center justify-between">
+                    <div>
+                      <span className="text-2xl font-bold text-gray-900">${product.price}</span>
+                      <span className="text-sm text-gray-400 ml-1">USD</span>
+                    </div>
                   </div>
-                  <ViewButton key={product.id} id={product.id} />
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </section>
-
-
     </div>
   );
 }

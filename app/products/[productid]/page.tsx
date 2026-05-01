@@ -1,4 +1,5 @@
-import { getProduct } from "../../lib/api";
+import  AddToCartButton  from "../../components/add-to-cart-btn";
+import { getProduct, getProducts } from "../../lib/api";
 import { notFound } from "next/navigation";
 
 type product = {
@@ -17,6 +18,9 @@ export default async function View({ params }: { params: Promise<{ productid: st
   if (!product) {
     notFound();
   }
+  const allProducts: product[] = await getProducts();
+  const relatedProducts = allProducts.filter((p) => p.category === product.category && p.id !== product.id);
+
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-950 dark:to-gray-900 font-sans mt-12">
@@ -74,11 +78,9 @@ export default async function View({ params }: { params: Promise<{ productid: st
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <button className="flex-1 bg-gradient-to-r from-gray-900 to-gray-800 hover:from-gray-800 hover:to-gray-700 text-white font-semibold py-3 px-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5">
-                Add to Cart
-              </button>
-              <button className="flex-1 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 text-gray-800 dark:text-gray-200 font-semibold py-3 px-6 rounded-xl shadow-sm hover:shadow transition-all duration-200">
                 Buy Now
               </button>
+              <AddToCartButton id={product.id} />
             </div>
 
             {/* Extra info - trust signals */}
@@ -104,6 +106,56 @@ export default async function View({ params }: { params: Promise<{ productid: st
             </div>
           </div>
         </div>
+        {/* Related Products */}
+        
+            {/* Related Products Section */}
+        {relatedProducts.length > 0 && (
+          <div className="mt-20">
+            <div className="flex items-center justify-between mb-8">
+              <div>
+                <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
+                  You May Also Like
+                </h2>
+                <div className="h-1 w-16 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full mt-2"></div>
+              </div>
+              <span className="text-sm text-gray-500 dark:text-gray-400">
+                {relatedProducts.length} items
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {relatedProducts.map((related) => (
+                <a
+                  key={related.id}
+                  href={`/products/${related.id}`}
+                  className="group bg-white dark:bg-gray-900 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 dark:border-gray-800 hover:border-gray-200 dark:hover:border-gray-700 overflow-hidden flex flex-col"
+                >
+                  <div className="bg-gray-50 dark:bg-gray-800 h-48 flex items-center justify-center p-4">
+                    <img
+                      src={related.image}
+                      alt={related.title}
+                      className="h-full object-contain transform group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                  <div className="p-4 flex flex-col flex-grow">
+                    <h3 className="text-sm font-semibold text-gray-800 dark:text-gray-100 line-clamp-1 group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                      {related.title}
+                    </h3>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 line-clamp-2">
+                      {related.description}
+                    </p>
+                    <div className="mt-3 flex items-center justify-between">
+                      <span className="text-lg font-bold text-gray-900 dark:text-white">
+                        ${related.price}
+                      </span>
+                      <span className="text-xs text-gray-400">View →</span>
+                    </div>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
