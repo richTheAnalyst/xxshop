@@ -2,16 +2,21 @@ import  AddToCartButton  from "../../components/add-to-cart-btn";
 import { getProduct, getProducts } from "../../lib/api";
 import { notFound } from "next/navigation";
 
+
 type product = {
   id: number;
   title: string;
   price: number;
+  quantity: number;
   description: string;
   category: string;
   image: string;
 };
 
 export default async function View({ params }: { params: Promise<{ productid: string }> }) {
+
+
+
   const { productid } = await params;
   const product: product = await getProduct(Number(productid));
 
@@ -80,7 +85,8 @@ export default async function View({ params }: { params: Promise<{ productid: st
               <button className="flex-1 bg-gradient-to-r from-gray-900 to-gray-800 hover:from-gray-800 hover:to-gray-700 text-white font-semibold py-3 px-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5">
                 Buy Now
               </button>
-              <AddToCartButton id={product.id} />
+              <AddToCartButton product={product} />
+             
             </div>
 
             {/* Extra info - trust signals */}

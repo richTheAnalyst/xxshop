@@ -3,6 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Trash2, Plus, Minus, ShoppingBag, ArrowLeft } from "lucide-react";
+import { useCart } from "../../context/CartContext";
+
 
 // This would typically come from your cart state management
 type CartItem = {
@@ -15,32 +17,20 @@ type CartItem = {
 };
 
 export default function AddToCartPage(  ) {
-  // Temporary demo data - replace with your actual cart logic
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+
+  const {cart, removeFromCart, updateQuantity } = useCart();
+
   
 
-  const updateQuantity = (id: number, newQuantity: number) => {
-    if (newQuantity < 1) return;
-    setCartItems(items =>
-      items.map(item =>
-        item.id === id ? { ...item, quantity: newQuantity } : item
-      )
-    );
-  };
-
-  const removeItem = (id: number) => {
-    setCartItems(items => items.filter(item => item.id !== id));
-  };
-
-  const subtotal = cartItems.reduce(
-    (sum, item) => sum + item.price * item.quantity,
+  const subtotal = cart.reduce(
+    (sum: number, item) => sum + item.price * item.quantity,
     0
   );
   const shipping = subtotal > 100 ? 0 : 10;
   const tax = subtotal * 0.1;
   const total = subtotal + shipping + tax;
 
-  if (cartItems.length === 0) {
+  if (cart.length === 0) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-gray-50 to-white dark:from-gray-950 dark:to-gray-900 font-sans px-4">
         <div className="text-center max-w-md">
@@ -81,14 +71,14 @@ export default function AddToCartPage(  ) {
             Shopping Cart
           </h1>
           <p className="text-gray-500 dark:text-gray-400 mt-2">
-            {cartItems.length} {cartItems.length === 1 ? "item" : "items"} in your cart
+            {cart.length} {cart.length === 1 ? "item" : "items"} in your cart
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Cart Items */}
           <div className="lg:col-span-2 space-y-4">
-            {cartItems.map((item) => (
+            {cart.map((item) => (
               <div
                 key={item.id}
                 className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 p-4 md:p-6 hover:shadow-md transition-shadow"
@@ -115,7 +105,7 @@ export default function AddToCartPage(  ) {
                         </p>
                       </div>
                       <button
-                        onClick={() => removeItem(item.id)}
+                        onClick={() => removeFromCart(item.id)}
                         className="text-gray-400 hover:text-red-500 transition-colors"
                         aria-label="Remove item"
                       >
