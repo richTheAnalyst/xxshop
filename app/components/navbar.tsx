@@ -1,10 +1,13 @@
 'use client';
 import { Menu, X, Search } from "lucide-react";
 import Link from "next/link";
+import { useCart } from "../context/CartContext";
 import { useState } from "react";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const { cart } = useCart();
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
     <>
@@ -52,9 +55,15 @@ export default function Navbar() {
                  <li>
                   <Link 
                     href="../products/add-to-cart" 
-                    className="text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
+                    className="relative"
                   >
-                    Carts 
+                   🛒 Cart
+
+                  {totalItems > 0 && (
+                    <span className="absolute -top-2 -right-3 bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">
+                      {totalItems}
+                    </span>
+                  )}
                   </Link>
                   
                 </li>
