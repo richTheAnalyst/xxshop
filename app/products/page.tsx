@@ -1,4 +1,4 @@
-import { getProducts } from "../lib/api";
+import { getProducts } from "../api/products-api";
 import Link from "next/link";
 
 type product = {

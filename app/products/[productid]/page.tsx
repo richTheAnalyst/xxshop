@@ -1,5 +1,5 @@
 import  AddToCartButton  from "../../components/add-to-cart-btn";
-import { getProduct, getProducts } from "../../lib/api";
+import { getProduct, getProducts } from "../../api/products-api";
 import { notFound } from "next/navigation";
 
 

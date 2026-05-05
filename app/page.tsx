@@ -1,4 +1,4 @@
-import { getProducts } from "./lib/api";
+import { getProducts } from "./api/products-api";
 import ViewButton from "./components/button";
 import Link from "next/link";
 
