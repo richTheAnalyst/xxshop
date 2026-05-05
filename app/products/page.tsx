@@ -61,9 +61,9 @@ export default async function Users() {
                 <div className="mt-5 flex items-center justify-between pt-2 border-t border-gray-50 dark:border-gray-800">
                   <div>
                     <span className="text-xl font-bold text-gray-900 dark:text-white">
-                      ${product.price}
+                      GHC {product.price}
                     </span>
-                    <span className="text-xs text-gray-400 ml-1">USD</span>
+                    <span className="text-xs text-gray-400 ml-1">CEDIS</span>
                   </div>
                 </div>
               </div>
