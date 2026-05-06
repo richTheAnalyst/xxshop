@@ -149,6 +149,21 @@ export default function Navbar() {
               >
                 Products
               </Link>
+                  <Link 
+                    href="/auth/register" 
+                    onClick = {() => setIsOpen(false)}
+                    className="block py-2 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors"
+                  >
+                    Register
+                  </Link>
+                  
+                  <Link 
+                    href="/auth/login" 
+                    onClick = {() => setIsOpen(false)}
+                    className="block py-2 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors"
+                  >
+                    Login
+                  </Link>
                <Link 
                 href="../products/add-to-cart" 
                 onClick={() => setIsOpen(false)}
