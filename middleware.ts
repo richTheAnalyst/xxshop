@@ -32,6 +32,7 @@ export const config = {
     "/cart/:path*",
     "/checkout/:path*",
     "/profile/:path*",
+    "/profile",
     "/login",
     "/register",
   ],
