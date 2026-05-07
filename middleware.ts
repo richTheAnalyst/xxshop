@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import jwt from "jsonwebtoken";
 
 export function middleware(request: NextRequest) {
   const token = request.cookies.get("auth_token")?.value;
@@ -12,49 +11,27 @@ export function middleware(request: NextRequest) {
     pathname.startsWith("/checkout") ||
     pathname.startsWith("/profile");
 
-  // Public routes (no token needed)
-  const isPublicRoute =
-    pathname === "/login" ||
-    pathname === "/register" ||
-    pathname.startsWith("/products") || 
-    pathname === "/";
-
-  // If it's not protected, allow access immediately
-  if (!isProtectedRoute) {
-    return NextResponse.next();
-  }
-
-  // If it's protected but no token, redirect to login
-  if (!token) {
+  // If it's a protected route and no token, redirect to login
+  if (isProtectedRoute && !token) {
     const loginUrl = new URL("/login", request.url);
     loginUrl.searchParams.set("from", pathname);
     return NextResponse.redirect(loginUrl);
   }
 
-  // Verify token
-  try {
-    const secret = process.env.JWT_SECRET;
-    if (!secret) {
-      console.error("JWT_SECRET not set");
-      return NextResponse.redirect(new URL("/login", request.url));
-    }
-    jwt.verify(token, secret);
-    return NextResponse.next(); // allow access
-  } catch (error) {
-    // Invalid/expired token – redirect to login
-    const loginUrl = new URL("/login", request.url);
-    loginUrl.searchParams.set("from", pathname);
-    return NextResponse.redirect(loginUrl);
+  // If the user is logged in and tries to access login/register, redirect to home
+  if (token && (pathname === "/login" || pathname === "/register")) {
+    return NextResponse.redirect(new URL("/", request.url));
   }
+
+  return NextResponse.next();
 }
 
-// Middleware runs only on these routes (improves performance)
+// Middleware runs on these routes
 export const config = {
   matcher: [
     "/cart/:path*",
     "/checkout/:path*",
     "/profile/:path*",
-    "/products/:path*",   // optional: you can remove to make products public
     "/login",
     "/register",
   ],
