@@ -9,7 +9,7 @@ export default function CartIconClient({ isAuthenticated }: { isAuthenticated: b
   if (!isAuthenticated) return null;
 
   return (
-    <Link href="/cart" className="relative">
+    <Link href="../products/add-to-cart" className="relative">
       🛒 Cart
       {totalItems > 0 && (
         <span className="absolute -top-2 -right-3 bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">

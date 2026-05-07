@@ -205,7 +205,7 @@ export default function AddToCartPage(  ) {
               </button>
  */}
               <p className="text-xs text-center text-gray-500 dark:text-gray-400 mt-4">
-                Secure payment powered by Stripe
+                Secure payment powered by Paystack
               </p>
             </div>
           </div>

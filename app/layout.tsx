@@ -4,6 +4,8 @@ import "./globals.css";
 import Navbar from "./components/navbar";
 import Footer from "./components/footer";
 import { CartProvider } from "./context/CartContext";
+import RegisterPage from "./auth/register/page";
+import LoginPage from "./auth/login/page";
 
 
 const geistSans = Geist({
@@ -34,6 +36,8 @@ export default function RootLayout({
     >
      
       <body className="min-h-full flex flex-col">
+
+        
          <CartProvider>
           <Navbar />
             {children}

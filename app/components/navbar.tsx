@@ -1,13 +1,14 @@
-'use client';
-import { Menu, X, Search } from "lucide-react";
+import { Search } from "lucide-react";
 import Link from "next/link";
-import { useCart } from "../context/CartContext";
-import { useState } from "react";
+import { cookies } from "next/headers";
+import CartIconWrapper from "./cart-icon-wrapper";
+import MobileMenu from "./mobile-menu";
+import LogoutButton from "./logout-btn";
 
-export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const { cart } = useCart();
-  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+export default async function Navbar() {
+  const cookieStore = await cookies();
+  const token = cookieStore.get("auth_token")?.value;
+  const isAuthenticated = !!token;
 
   return (
     <>
@@ -50,41 +51,46 @@ export default function Navbar() {
                   >
                     Products
                   </Link>
-                  
                 </li>
-                 <li>
-                  <Link 
-                    href="../products/add-to-cart" 
-                    className="relative"
-                  >
-                   🛒 Cart
-
-                  {totalItems > 0 && (
-                    <span className="absolute -top-2 -right-3 bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">
-                      {totalItems}
-                    </span>
-                  )}
-                  </Link>
-                  
-                </li>
-                 <li>
-                  <Link 
-                    href="/auth/register" 
-                    className="text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
-                  >
-                    Register
-                  </Link>
-                  
-                </li>
-                 <li>
-                  <Link 
-                    href="/auth/login" 
-                    className="text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
-                  >
-                    Login
-                  </Link>
-                  
-                </li>
+                {isAuthenticated && (
+                  <li>
+                    <CartIconWrapper />
+                  </li>
+                )}
+                {!isAuthenticated ? (
+                  <>
+                    <li>
+                      <Link 
+                        href="/auth/register" 
+                        className="text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
+                      >
+                        Register
+                      </Link>
+                    </li>
+                    <li>
+                      <Link 
+                        href="/auth/login" 
+                        className="text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
+                      >
+                        Login
+                      </Link>
+                    </li>
+                  </>
+                ) : (
+                   <>
+                    <li>
+                      <Link 
+                        href="/profile" 
+                        className="text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
+                      >
+                        Profile
+                      </Link>
+                    </li>
+                    <li>
+                      <LogoutButton />
+                    </li>
+                   </>
+                )}
               </ul>
             </div>
 
@@ -99,81 +105,10 @@ export default function Navbar() {
             </div>
 
             {/* Mobile menu button */}
-            <button 
-              onClick={() => setIsOpen(!isOpen)} 
-              className="md:hidden p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              aria-label="Toggle menu"
-            >
-              {isOpen ? (
-                <X className="h-5 w-5 text-gray-600 dark:text-gray-300" />
-              ) : (
-                <Menu className="h-5 w-5 text-gray-600 dark:text-gray-300" />
-              )}
-            </button>
+            <MobileMenu isAuthenticated={isAuthenticated} />
+
           </div>
         </div>
-
-        {/* Mobile Navigation Menu */}
-        {isOpen && (
-          <div className="md:hidden absolute top-16 left-0 w-full bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 shadow-lg animate-in slide-in-from-top-2">
-            <div className="px-4 py-4 space-y-3">
-              {/* Mobile Search */}
-              <div className="relative mb-4">
-                <input
-                  type="text"
-                  className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Search products..."
-                />
-                <Search className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
-              </div>
-              
-              {/* Mobile Links */}
-              <Link 
-                href="/" 
-                onClick={() => setIsOpen(false)}
-                className="block py-2 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors"
-              >
-                Home
-              </Link>
-              <Link 
-                href="/about" 
-                onClick={() => setIsOpen(false)}
-                className="block py-2 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors"
-              >
-                About
-              </Link>
-              <Link 
-                href="/products" 
-                onClick={() => setIsOpen(false)}
-                className="block py-2 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors"
-              >
-                Products
-              </Link>
-                  <Link 
-                    href="/auth/register" 
-                    onClick = {() => setIsOpen(false)}
-                    className="block py-2 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors"
-                  >
-                    Register
-                  </Link>
-                  
-                  <Link 
-                    href="/auth/login" 
-                    onClick = {() => setIsOpen(false)}
-                    className="block py-2 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors"
-                  >
-                    Login
-                  </Link>
-               <Link 
-                href="../products/add-to-cart" 
-                onClick={() => setIsOpen(false)}
-                className="block py-2 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors"
-              >
-                Carts
-              </Link>
-            </div>
-          </div>
-        )}
       </nav>
 
       {/* Spacer to prevent content from hiding under fixed navbar */}

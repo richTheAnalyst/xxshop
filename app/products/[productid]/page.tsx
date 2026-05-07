@@ -1,6 +1,8 @@
 import  AddToCartButton  from "../../components/add-to-cart-btn";
 import { getProduct, getProducts } from "../../api/products-api";
 import { notFound } from "next/navigation";
+import { cookies } from "next/headers";
+import Link from "next/link";
 
 
 type product = {
@@ -15,7 +17,9 @@ type product = {
 
 export default async function View({ params }: { params: Promise<{ productid: string }> }) {
 
-
+  const cookieStore = await cookies();
+  const token = cookieStore.get("auth_token")?.value;
+  const isAuthenticated = !!token;
 
   const { productid } = await params;
   const product: product = await getProduct(Number(productid));
@@ -31,7 +35,7 @@ export default async function View({ params }: { params: Promise<{ productid: st
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-950 dark:to-gray-900 font-sans mt-12">
       {/* Simple top bar with back link (optional, no navbar) */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-4">
-        <a
+        <Link
           href="/products"
           className="inline-flex items-center text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
         >
@@ -39,7 +43,7 @@ export default async function View({ params }: { params: Promise<{ productid: st
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
           Back to products
-        </a>
+        </Link>
       </div>
 
       {/* Product Detail Section */}
@@ -85,7 +89,16 @@ export default async function View({ params }: { params: Promise<{ productid: st
               <button className="flex-1 bg-gradient-to-r from-gray-900 to-gray-800 hover:from-gray-800 hover:to-gray-700 text-white font-semibold py-3 px-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5">
                 Buy Now
               </button>
-              <AddToCartButton product={product} />
+              {isAuthenticated ? (
+                <AddToCartButton product={product} />
+              ) : (
+                <Link 
+                  href={`/auth/login?from=/products/${product.id}`}
+                  className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-xl text-center shadow-md transition-all"
+                >
+                  Login to Add to Cart
+                </Link>
+              )}
              
             </div>
 
@@ -131,7 +144,7 @@ export default async function View({ params }: { params: Promise<{ productid: st
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {relatedProducts.map((related) => (
-                <a
+                <Link
                   key={related.id}
                   href={`/products/${related.id}`}
                   className="group bg-white dark:bg-gray-900 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 dark:border-gray-800 hover:border-gray-200 dark:hover:border-gray-700 overflow-hidden flex flex-col"
@@ -157,7 +170,7 @@ export default async function View({ params }: { params: Promise<{ productid: st
                       <span className="text-xs text-gray-400">View →</span>
                     </div>
                   </div>
-                </a>
+                </Link>
               ))}
             </div>
           </div>
