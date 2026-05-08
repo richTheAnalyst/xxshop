@@ -3,10 +3,10 @@ import { NextResponse } from "next/server";
 
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const id = params.id;
+    const { id } = await params;
     if (!id || isNaN(parseInt(id))) {
       return NextResponse.json({ error: "Valid User ID is required" }, { status: 400 });
     }
