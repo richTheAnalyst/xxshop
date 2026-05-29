@@ -6,10 +6,10 @@ import jwt from 'jsonwebtoken'
 
 export default function proxy(req: NextRequest) {
 
-    const token = req.cookies.get('token')?.value;
+    const token = req.cookies.get('auth_token')?.value;
 
     if(!token) {
-        return NextResponse.redirect(new URL("/login", req.url));
+        return NextResponse.redirect(new URL("/auth/login", req.url));
 
     }
 
@@ -27,7 +27,7 @@ export default function proxy(req: NextRequest) {
     }
     catch {
         return NextResponse.redirect(
-            new URL("/login", req.url)
+            new URL("/auth/login", req.url)
         );
     }
 
