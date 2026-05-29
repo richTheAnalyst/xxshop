@@ -1,5 +1,6 @@
 'use client';
 
+import Cookies from "js-cookie"
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -26,10 +27,12 @@ export default function LoginPage() {
       });
 
       const data = await res.json();
+      Cookies.set("token", data.token)
 
       if (!res.ok) {
         throw new Error(data.error || 'Login failed');
       }
+      Cookies.set("token", data.token)
 
       // Redirect to home or dashboard on success
       router.push('/');

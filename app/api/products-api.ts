@@ -1,8 +1,7 @@
-import next from "next";
 import { notFound } from "next/navigation";
 
 export async function getProducts(): Promise<any[]> {
-  const res = await fetch("https://fakestoreapi.com/products", 
+  const res = await fetch("http://localhost:3000/api/products", 
     {next: {revalidate: 3600}}
   );
 
@@ -25,12 +24,13 @@ export async function getProducts(): Promise<any[]> {
 
 }
 
+//getting products by name
 export async function getProduct(id: number): Promise<any> {
   if (!id) {
     return null;
   }
 
-  const res = await fetch(`https://fakestoreapi.com/products/${id}`);
+  const res = await fetch(`http://localhost:3000/api/products/${id}`);
 
   if (res.status === 404) {
     notFound();
