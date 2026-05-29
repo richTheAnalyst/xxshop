@@ -19,7 +19,7 @@ export async function GET() {
 
 //create products
 
-export async function POST(req: Request, res: Response) {
+export async function POST(req: Request) {
     const body = await req.json();
 
     const product = await prisma.product.create({
