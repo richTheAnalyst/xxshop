@@ -1,4 +1,5 @@
 import { getProducts } from "../api/products-api";
+import { GET } from "../api/products/route.ts"
 import Link from "next/link";
 
 type product = {

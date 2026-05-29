@@ -5,7 +5,14 @@ import { NextResponse } from 'next/server'
 //get all products
 
 export async function GET() {
+
+    try {
     const products = await prisma.product.findMany();
+    }
+    catch(error) {
+        console.log("PRODUCTS API ERROR:", error)
+
+    }
 
     return NextResponse.json(products);
 }
@@ -24,7 +31,7 @@ export async function POST(req: Request, res: Response) {
             category: body.category,
         },
     })
-    
+
     return NextResponse.json(product);
 
 }

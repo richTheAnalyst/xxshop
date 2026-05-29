@@ -1,39 +1,39 @@
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+import jwt from 'jsonwebtoken'
 
-export function proxy(request: NextRequest) {
-  const token = request.cookies.get("auth_token")?.value;
-  const { pathname } = request.nextUrl;
 
-  // Define which routes require authentication
-  const isProtectedRoute =
-    pathname.startsWith("/cart") ||
-    pathname.startsWith("/checkout") ||
-    pathname.startsWith("/profile");
 
-  // If it's a protected route and no token, redirect to login
-  if (isProtectedRoute && !token) {
-    const loginUrl = new URL("/login", request.url);
-    loginUrl.searchParams.set("from", pathname);
-    return NextResponse.redirect(loginUrl);
-  }
+export default function proxy(req: NextRequest) {
 
-  // If the user is logged in and tries to access login/register, redirect to home
-  if (token && (pathname === "/login" || pathname === "/register")) {
-    return NextResponse.redirect(new URL("/", request.url));
-  }
+    const token = req.cookies.get('token')?.value;
 
-  return NextResponse.next();
+    if(!token) {
+        return NextResponse.redirect(new URL("/login", req.url));
+
+    }
+
+    try {
+        const decoded: any = jwt.verify(
+            token, process.env.JWT_SECRET!
+        );
+
+        if (decoded.role !== "admin") {
+            return NextResponse.redirect(new URL("/", req.url));
+
+        }
+
+        return NextResponse.next()
+    }
+    catch {
+        return NextResponse.redirect(
+            new URL("/login", req.url)
+        );
+    }
+
+
 }
 
-// Middleware runs on these routes
-export const config = {
-  matcher: [
-    "/cart/:path*",
-    "/checkout/:path*",
-    "/profile/:path*",
-    "/profile",
-    "/login",
-    "/register",
-  ],
-};
+ export const config = {
+        matcher: ["/dashboard/:path*"],
+    }
