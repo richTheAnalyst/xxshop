@@ -18,7 +18,7 @@ export default function DashboardPage() {
           </h2>
 
           <p className="text-gray-500 mt-2">
-            Manage products
+            Manage productsssssssss
           </p>
         </Link>
 
