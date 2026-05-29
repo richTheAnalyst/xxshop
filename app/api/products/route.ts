@@ -1,4 +1,4 @@
-import prisma from '@prisma/client'
+import prisma from '../../lib/prisma'
 import { NextResponse } from 'next/server'
 
 
@@ -8,19 +8,19 @@ export async function GET() {
 
     try {
     const products = await prisma.product.findMany();
+
+    return NextResponse.json(products)
     }
     catch(error) {
         console.log("PRODUCTS API ERROR:", error)
 
     }
-
-    return NextResponse.json(products);
 }
 
 //create products
 
 export async function POST(req: Request, res: Response) {
-    const body = req.json();
+    const body = await req.json();
 
     const product = await prisma.product.create({
         data: {

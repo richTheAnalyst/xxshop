@@ -15,17 +15,17 @@ export default async function Home() {
   const featuredProducts = products.slice(0, 6);
 
   return (
-    <div className="bg-gray-50 min-h-screen">
+    <div className="bg-gray-50 min-h-screen bg-gray-600">
       
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-indigo-50">
+      <section className="relative overflow-hidden bg-gradient-to-br from-amber-600 via-white to-gray-400">
         <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-indigo-300 rounded-full mix-blend-multiply filter blur-3xl animate-pulse delay-1000"></div>
+          <div className="absolute top-20 left-10 w-72 h-72 bg-gray-950 rounded-full mix-blend-multiply filter blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-gray-950 rounded-full mix-blend-multiply filter blur-3xl animate-pulse delay-1000"></div>
         </div>
         <div className="max-w-6xl mx-auto px-6 py-20 md:py-28 relative z-10">
           <div className="text-center max-w-3xl mx-auto">
-            <div className="inline-flex items-center gap-2 bg-white/50 backdrop-blur-sm rounded-full px-4 py-1.5 border border-gray-200 shadow-sm mb-6">
+            <div className="inline-flex items-center gap-2 bg-gold/50 backdrop-blur-sm rounded-full px-4 py-1.5 border border-gray-200 shadow-sm mb-6">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
@@ -36,17 +36,17 @@ export default async function Home() {
             <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight">
               <span className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent">Welcome to</span>
               <br />
-              <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">XX Shop</span>
+              <span className="bg-gradient-to-r from-amber-600 to-yellow-500 bg-clip-text text-transparent">SunnyLinkRentals</span>
             </h1>
             <p className="text-gray-600 text-lg md:text-xl mt-6 max-w-2xl mx-auto leading-relaxed">
               Your one-stop destination for quality products at unbeatable prices. 
               Discover curated collections designed to elevate your everyday life.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-              <Link href="/products" className="px-8 py-3 bg-gray-900 text-white hover:bg-gray-600 rounded-xl font-medium border border-gray-200 shadow-sm hover:shadow-md transform hover:-translate-y-0.5 transition-all duration-200">
+              <Link href="/products" className="px-8 py-3 bg-amber-600 text-white hover:bg-amber-900 rounded-xl font-medium border border-gray-200 shadow-sm hover:shadow-md transform hover:-translate-y-0.5 transition-all duration-200">
                 Shop Now
               </Link>
-              <Link href="/products" className="px-8 py-3 bg-white text-gray-800 hover:bg-gray-100 rounded-xl font-medium border border-gray-200 shadow-sm hover:shadow-md transform hover:-translate-y-0.5 transition-all duration-200">
+              <Link href="/products" className="px-8 py-3 bg-white text-gray-800 hover:bg-gray-400 rounded-xl font-medium border border-gray-200 shadow-sm hover:shadow-md transform hover:-translate-y-0.5 transition-all duration-200">
                 Explore Products
               </Link>
             </div>
@@ -55,8 +55,8 @@ export default async function Home() {
       </section>
 
       {/* Featured Products Section */}
-      <section className="max-w-6xl mx-auto px-6 py-16 md:py-24">
-        <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-12">
+      <section className="max-w-6xl mx-auto px-6 bg-gradient-to-br from-gray-400 via-white to-gray-600 py-16 md:py-24">
+        <div className="flex flex-col md:flex-row items-start  md:items-end justify-between mb-12">
           <div>
             <span className="text-sm font-semibold text-blue-600 tracking-wide uppercase">Curated Selection</span>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mt-2">Featured Products</h2>

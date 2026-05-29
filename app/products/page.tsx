@@ -1,8 +1,7 @@
-import { getProducts } from "../api/products-api";
-import { GET } from "../api/products/route.ts"
+
 import Link from "next/link";
 
-type product = {
+type Product = {
   id: number;
   title: string;
   price: number;
@@ -12,7 +11,14 @@ type product = {
 };
 
 export default async function Users() {
-  const product: product[] = await getProducts();
+  const res = await fetch("http://localhost:3000/api/products",
+    {
+      cache: "no-store",
+    });
+    if(!res.ok) {
+      throw new Error ("failed to fetch peo")
+    }
+  const products: Product[] = await res.json();
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-950 dark:to-gray-900 font-san mt-12">
@@ -35,7 +41,7 @@ export default async function Users() {
       {/* Products Grid */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
-          {product.map((product) => (
+          {products.map((product) => (
             <Link href={`/products/${product.id}`} key={product.id} className="group relative bg-white dark:bg-gray-900 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 ease-out border border-gray-100 dark:border-gray-800 hover:border-gray-200 dark:hover:border-gray-700 flex flex-col overflow-hidden"> 
               <div className="relative bg-gray-50 dark:bg-gray-800 flex items-center justify-center h-64 p-4 overflow-hidden">
                 <img
@@ -71,7 +77,7 @@ export default async function Users() {
             </Link>
           ))}
         </div>
-        {product.length === 0 && (
+        {products.length === 0 && (
           <div className="text-center py-20">
             <p className="text-gray-500 dark:text-gray-400">No products found.</p>
           </div>

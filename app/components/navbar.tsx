@@ -12,16 +12,16 @@ export default async function Navbar() {
 
   return (
     <>
-      <nav className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-md fixed w-full z-50 top-0 border-b border-gray-200 dark:border-gray-800 shadow-sm">
+      <nav className="bg-white-100 dark:bg-yellow-900/80 backdrop-blur-md fixed w-full z-50 top-0 border-b border-gray-200 dark:border-gray-800 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <Link href="/" className="flex items-center space-x-2 group">
-              <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center shadow-md transition-transform group-hover:scale-105">
-                <span className="text-white font-bold text-sm">XX</span>
+              <div className="w-20 h-8 bg-gradient-to-br from-gray-600 to-white-600 rounded-lg flex items-center justify-center shadow-md transition-transform group-hover:scale-105">
+                <span className="text-amber-600 font-bold text-lg">SUNNY</span>
               </div>
               <span className="text-xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 bg-clip-text text-transparent">
-                XX SHOP
+                LinkRentals
               </span>
             </Link>
 
