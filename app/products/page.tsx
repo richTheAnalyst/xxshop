@@ -1,4 +1,4 @@
-
+import { getProducts } from "../api/products-api";
 import Link from "next/link";
 
 type Product = {
@@ -11,14 +11,11 @@ type Product = {
 };
 
 export default async function Users() {
-  const res = await fetch("http://localhost:3000/api/products",
-    {
-      cache: "no-store",
-    });
-    if(!res.ok) {
-      throw new Error ("failed to fetch peo")
-    }
-  const products: Product[] = await res.json();
+  const products: Product[] = await getProducts();
+
+  if (!products) {
+    throw new Error("failed to fetch products");
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-950 dark:to-gray-900 font-san mt-12">
