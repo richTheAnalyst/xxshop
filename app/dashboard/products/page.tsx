@@ -2,7 +2,7 @@ import Link from "next/link";
 
 async function getProducts() {
   const res = await fetch(
-    "http://localhost:3000/api/products",
+    "/api/products",
     {
       cache: "no-store",
     }
