@@ -48,8 +48,8 @@ export default function LoginPage() {
       <div className="max-w-md w-full space-y-8 bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-800">
         {/* Header */}
         <div className="text-center">
-          <div className="mx-auto w-12 h-12 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg">
-            <span className="text-white font-bold text-xl">XX</span>
+          <div className="mx-auto w-35 h-12 bg-gradient-to-br from-amber-600 to-gray-600 rounded-xl flex items-center justify-center shadow-lg">
+            <span className="text-white font-bold text-xl">SUNNYLINKS</span>
           </div>
           <h2 className="mt-6 text-3xl font-extrabold text-gray-900 dark:text-white">
             Welcome back
@@ -125,7 +125,7 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+            className="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-gradient-to-r from-blue-800 to-indigo-800 hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
           >
             {loading ? (
               <>
