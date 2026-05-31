@@ -15,8 +15,7 @@ export default async function Home() {
   const featuredProducts = products.slice(0, 6);
 
   return (
-    <div className="bg-gray-50 min-h-screen bg-gray-600">
-      
+<div className="min-h-screen bg-white">         
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-amber-600 via-white to-gray-400">
         <div className="absolute inset-0 opacity-20">
@@ -55,7 +54,7 @@ export default async function Home() {
       </section>
 
       {/* Featured Products Section */}
-      <section className="max-w-6xl mx-auto px-6 bg-gradient-to-br from-gray-400 via-white to-gray-600 py-16 md:py-24">
+      <section className="max-w-6xl mx-auto px-6 bg-gradient-to-br from-white via-white to-gray-400 py-16 md:py-24 rounded-2xl mt-10">
         <div className="flex flex-col md:flex-row items-start  md:items-end justify-between mb-12">
           <div>
             <span className="text-sm font-semibold text-blue-600 tracking-wide uppercase">Curated Selection</span>
