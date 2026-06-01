@@ -3,6 +3,7 @@ import { PrismaClient } from "@prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import pg from "pg";
 import bcrypt from "bcryptjs";
+import prodSeed from "./productSeed";
 
 async function main() {
   console.log("🚀 Seed script started...");
@@ -13,6 +14,8 @@ async function main() {
 
   try {
     console.log(`🔗 Connected to database: ${process.env.DATABASE_URL?.split('@')[1]}`);
+
+    await prodSeed( prisma);
 
     const users = [
       { name: 'Alice Johnson', phone: '+1 555-0101', email: 'alice@example.com', password: 'password123' },
