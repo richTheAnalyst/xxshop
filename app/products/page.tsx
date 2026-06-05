@@ -1,5 +1,7 @@
 import { getProducts } from "../api/products-api";
+import FeaturedProductsSection from "../components/featuredProductsSection";
 import Link from "next/link";
+import Image from "next/image";
 
 type Product = {
   id: number;
@@ -11,75 +13,77 @@ type Product = {
 };
 
 export default async function Users() {
+  // 🔒 YOUR EXACT FETCH LOGIC – UNCHANGED
   const products: Product[] = await getProducts();
+  const featuredProducts = products;
 
   if (!products) {
     throw new Error("failed to fetch products");
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-950 dark:to-gray-900 font-san mt-12">
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-8">
-        <div className="text-center md:text-left md:flex md:items-end md:justify-between">
-          <div>
-            <h1 className="text-4xl md:text-5xl font-bold tracking-tight bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 bg-clip-text text-transparent">
-              Our Collection
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 font-sans">
+      {/* Hero Section with animated gradient */}
+      <div className="relative overflow-hidden bg-gradient-to-r from-amber-50/50 via-white to-orange-50/50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-900 border-b border-gray-200/50 dark:border-gray-800/50">
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute -top-40 -right-40 w-80 h-80 bg-amber-200 rounded-full mix-blend-multiply filter blur-3xl animate-pulse" />
+          <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-orange-200 rounded-full mix-blend-multiply filter blur-3xl animate-pulse delay-1000" />
+        </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-12 relative z-10">
+          <div className="text-center md:text-left">
+            <div className="inline-flex items-center gap-2 bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm rounded-full px-4 py-1.5 border border-amber-200 dark:border-gray-700 shadow-sm mb-6">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
+              </span>
+              <span className="text-xs font-medium text-gray-700 dark:text-gray-300">
+                {products.length} products available
+              </span>
+            </div>
+            <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">
+              <span className="bg-gradient-to-r from-gray-800 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">
+                Our Collection
+              </span>
             </h1>
-            <p className="text-gray-500 dark:text-gray-400 mt-2 text-lg max-w-2xl">
-              Discover quality products curated just for you
+            <p className="text-gray-600 dark:text-gray-400 mt-3 text-lg max-w-2xl leading-relaxed">
+              Discover quality products curated just for you – each piece chosen
+              for craftsmanship and value.
             </p>
           </div>
-          
         </div>
-        <div className="h-px bg-gradient-to-r from-transparent via-gray-200 dark:via-gray-700 to-transparent mt-6"></div>
       </div>
 
       {/* Products Grid */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
-          {products.map((product) => (
-            <Link href={`/products/${product.id}`} key={product.id} className="group relative bg-white dark:bg-gray-900 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 ease-out border border-gray-100 dark:border-gray-800 hover:border-gray-200 dark:hover:border-gray-700 flex flex-col overflow-hidden"> 
-              <div className="relative bg-gray-50 dark:bg-gray-800 flex items-center justify-center h-64 p-4 overflow-hidden">
-                <img
-                  src={product.image}
-                  alt={product.title}
-                  className="h-full w-full object-contain transform group-hover:scale-105 transition-transform duration-500"
-                />
-
-                <span className="absolute top-3 left-3 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm text-gray-700 dark:text-gray-200 text-xs font-medium px-2.5 py-1 rounded-full shadow-sm border border-gray-100 dark:border-gray-700">
-                  {product.category}
-                </span>
-              </div>
-
-             
-              <div className="p-5 flex flex-col flex-grow">
-                <h3 className="text-base font-semibold text-gray-800 dark:text-gray-100 line-clamp-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition">
-                  {product.title}
-                </h3>
-
-                <p className="text-sm text-gray-500 dark:text-gray-400 mt-2 line-clamp-2 leading-relaxed">
-                  {product.description}
-                </p>
-
-                <div className="mt-5 flex items-center justify-between pt-2 border-t border-gray-50 dark:border-gray-800">
-                  <div>
-                    <span className="text-xl font-bold text-gray-900 dark:text-white">
-                      GHC {product.price}
-                    </span>
-                    <span className="text-xs text-gray-400 ml-1">CEDIS</span>
-                  </div>
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
-        {products.length === 0 && (
-          <div className="text-center py-20">
-            <p className="text-gray-500 dark:text-gray-400">No products found.</p>
-          </div>
-        )}
+      <div>
+        <FeaturedProductsSection products={featuredProducts} />
       </div>
+
+      {/* Empty State */}
+      {products.length === 0 && (
+        <div className="text-center py-20 px-4">
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-amber-100 dark:bg-amber-900/30 rounded-full mb-6">
+            <svg
+              className="w-10 h-10 text-amber-600 dark:text-amber-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={1.5}
+                d="M20 13V7a2 2 0 00-2-2H6a2 2 0 00-2 2v6m16 0v4a2 2 0 01-2 2H6a2 2 0 01-2-2v-4m16 0H4"
+              />
+            </svg>
+          </div>
+          <p className="text-gray-500 dark:text-gray-400 text-lg">
+            No products found.
+          </p>
+          <p className="text-gray-400 dark:text-gray-500 text-sm mt-2">
+            Check back later for new arrivals.
+          </p>
+        </div>
+      )}
     </div>
   );
 }

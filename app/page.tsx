@@ -1,5 +1,7 @@
 import { getProducts } from "./api/products-api";
 import Link from "next/link";
+import FeaturedProductsSection from "./components/featuredProductsSection";
+
 
 type Product = {
   id: number;
@@ -11,41 +13,51 @@ type Product = {
 };
 
 export default async function Home() {
+  // 🔒 YOUR EXACT FETCH LOGIC – UNCHANGED
   const products = await getProducts();
   const featuredProducts = products.slice(0, 6);
 
   return (
-<div className="min-h-screen bg-white">         
-      {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-amber-600 via-white to-gray-400">
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-gray-950 rounded-full mix-blend-multiply filter blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-gray-950 rounded-full mix-blend-multiply filter blur-3xl animate-pulse delay-1000"></div>
+    <div className="min-h-screen bg-white">
+      {/* Hero Section – redesigned with better contrast & motion */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-amber-50 via-white to-gray-100">
+        <div className="absolute inset-0 opacity-30">
+          <div className="absolute top-20 left-10 w-72 h-72 bg-amber-200 rounded-full mix-blend-multiply filter blur-3xl animate-pulse" />
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-gray-300 rounded-full mix-blend-multiply filter blur-3xl animate-pulse delay-1000" />
         </div>
         <div className="max-w-6xl mx-auto px-6 py-20 md:py-28 relative z-10">
           <div className="text-center max-w-3xl mx-auto">
-            <div className="inline-flex items-center gap-2 bg-gold/50 backdrop-blur-sm rounded-full px-4 py-1.5 border border-gray-200 shadow-sm mb-6">
+            <div className="inline-flex items-center gap-2 bg-white/70 backdrop-blur-sm rounded-full px-4 py-1.5 border border-amber-200 shadow-sm mb-6">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
               </span>
-              <span className="text-xs font-medium text-gray-700">Free shipping worldwide</span>
+              <span className="text-xs font-medium text-gray-700">✨ Free shipping worldwide</span>
             </div>
-
             <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight">
-              <span className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent">Welcome to</span>
+              <span className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent">
+                Welcome to
+              </span>
               <br />
-              <span className="bg-gradient-to-r from-amber-600 to-yellow-500 bg-clip-text text-transparent">SunnyLinkRentals</span>
+              <span className="bg-gradient-to-r from-amber-600 to-orange-500 bg-clip-text text-transparent">
+                SunnyLinkRentals
+              </span>
             </h1>
             <p className="text-gray-600 text-lg md:text-xl mt-6 max-w-2xl mx-auto leading-relaxed">
-              Your one-stop destination for quality products at unbeatable prices. 
+              Your one-stop destination for quality products at unbeatable prices.
               Discover curated collections designed to elevate your everyday life.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-              <Link href="/products" className="px-8 py-3 bg-amber-600 text-white hover:bg-amber-900 rounded-xl font-medium border border-gray-200 shadow-sm hover:shadow-md transform hover:-translate-y-0.5 transition-all duration-200">
+              <Link
+                href="/products"
+                className="px-8 py-3 bg-amber-600 text-white hover:bg-amber-700 rounded-xl font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
+              >
                 Shop Now
               </Link>
-              <Link href="/products" className="px-8 py-3 bg-white text-gray-800 hover:bg-gray-400 rounded-xl font-medium border border-gray-200 shadow-sm hover:shadow-md transform hover:-translate-y-0.5 transition-all duration-200">
+              <Link
+                href="/products"
+                className="px-8 py-3 bg-white text-gray-800 hover:bg-gray-100 rounded-xl font-medium border border-gray-200 shadow-sm hover:shadow-md transform hover:-translate-y-0.5 transition-all duration-200"
+              >
                 Explore Products
               </Link>
             </div>
@@ -53,59 +65,10 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Featured Products Section */}
-      <section className="max-w-6xl mx-auto px-6 bg-gradient-to-br from-white via-white to-gray-400 py-16 md:py-24 rounded-2xl mt-10">
-        <div className="flex flex-col md:flex-row items-start  md:items-end justify-between mb-12">
-          <div>
-            <span className="text-sm font-semibold text-blue-600 tracking-wide uppercase">Curated Selection</span>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mt-2">Featured Products</h2>
-            <div className="w-20 h-1 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full mt-4"></div>
-          </div>
-          <span className="text-sm text-gray-500 hover:text-gray-700 transition-colors cursor-pointer mt-4 md:mt-0">
-            <Link href="/products">View all products →</Link>
-          </span>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {featuredProducts.filter((product) => product?.id).map((product) => (
-            <Link href={`/products/${product.id}`} key={product.id}>
-              <div className="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden h-full cursor-pointer">
-                {/* Image Container with Zoom Effect */}
-                <div className="relative overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 h-64 flex items-center justify-center p-6">
-                  <img
-                    src={product.image}
-                    alt={product.title}
-                    className="h-full object-contain transform group-hover:scale-105 transition-transform duration-500"
-                  />
-                  {/* Category Badge */}
-                  <span className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-gray-800 text-xs font-medium px-3 py-1 rounded-full shadow-sm border border-gray-100">
-                    {product.category}
-                  </span>
-                </div>
-
-                {/* Product Details */}
-                <div className="p-6">
-                  <h3 className="text-lg font-semibold text-gray-900 line-clamp-1 group-hover:text-blue-600 transition-colors">
-                    {product.title}
-                  </h3>
-                  
-                  <p className="text-sm text-gray-500 mt-2 line-clamp-2 leading-relaxed">
-                    {product.description}
-                  </p>
-
-                  {/* Price */}
-                  <div className="mt-5 flex items-center justify-between">
-                    <div>
-                      <span className="text-2xl font-bold text-gray-900">${product.price}</span>
-                      <span className="text-sm text-gray-400 ml-1">USD</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </section>
+      {/* Featured Products – with working image modal & improved cards */}
+      <FeaturedProductsSection products={featuredProducts} />
     </div>
   );
 }
+
+// Client component for interactivity (modal, hover states)
