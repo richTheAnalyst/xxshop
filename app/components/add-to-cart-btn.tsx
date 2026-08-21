@@ -20,7 +20,7 @@ export default function AddToCartButton({ product }: { product: Product }) {
     const { addToCart } = useCart();
     
     return (
-        <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium" onClick={() => {
+        <button className="px-4 py-2 bg-gradient-to-r from-amber-600 to-orange-600 text-white rounded-xl hover:from-amber-700 hover:to-orange-700 transition-all text-sm font-medium shadow-md hover:shadow-lg" onClick={() => {
           addToCart(product);
           toast.success("Added to cart!");
         }}>

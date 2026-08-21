@@ -12,7 +12,7 @@ type Product = {
   image: string;
 };
 
-export default async function Users() {
+export default async function ProductsPage() {
   // 🔒 YOUR EXACT FETCH LOGIC – UNCHANGED
   const products: Product[] = await getProducts();
   const featuredProducts = products;

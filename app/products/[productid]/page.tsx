@@ -78,7 +78,7 @@ export default async function View({ params }: { params: Promise<{ productid: st
 
             <div className="flex items-baseline space-x-2">
               <span className="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white">
-                ${product.price}
+                GHC{product.price}
               </span>
               <span className="text-sm text-gray-500 dark:text-gray-400">CEDIS</span>
             </div>
@@ -170,7 +170,7 @@ export default async function View({ params }: { params: Promise<{ productid: st
                     </p>
                     <div className="mt-3 flex items-center justify-between pt-2 border-t border-gray-50 dark:border-gray-800">
                       <span className="text-lg font-bold text-gray-900 dark:text-white">
-                        ${related.price}
+                        GHC{related.price}
                       </span>
                       <span className="text-xs text-amber-600 dark:text-amber-400 opacity-0 group-hover:opacity-100 transition-opacity">
                         View →

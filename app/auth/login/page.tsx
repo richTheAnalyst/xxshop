@@ -33,7 +33,6 @@ export default function LoginPage() {
       if (!res.ok) {
         throw new Error(data.error || 'Login failed');
       }
-      Cookies.set("token", data.token)
 
       router.push('/');
     } catch (err: any) {
