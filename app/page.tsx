@@ -13,7 +13,6 @@ type Product = {
 };
 
 export default async function Home() {
-  // 🔒 YOUR EXACT FETCH LOGIC – UNCHANGED
   const products = await getProducts();
   const featuredProducts = products.slice(0, 6);
 

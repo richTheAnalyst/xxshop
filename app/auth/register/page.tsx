@@ -7,7 +7,6 @@ import { Eye, EyeOff, Loader2, User, Phone, Mail, Lock } from 'lucide-react';
 
 export default function RegisterPage() {
   const router = useRouter();
-  // 🔒 YOUR EXACT STATE & LOGIC – UNCHANGED
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
@@ -47,7 +46,7 @@ export default function RegisterPage() {
         throw new Error(data.error || 'Registration failed');
       }
 
-      router.push('/login?registered=true');
+      router.push('/auth/login?registered=true');
     } catch (err: any) {
       setError(err.message);
     } finally {

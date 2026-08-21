@@ -80,7 +80,7 @@ export default async function View({ params }: { params: Promise<{ productid: st
               <span className="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white">
                 ${product.price}
               </span>
-              <span className="text-sm text-gray-500 dark:text-gray-400">USD</span>
+              <span className="text-sm text-gray-500 dark:text-gray-400">CEDIS</span>
             </div>
 
             <div className="prose prose-sm sm:prose dark:prose-invert max-w-none text-gray-600 dark:text-gray-300 leading-relaxed">

@@ -1,6 +1,7 @@
 'use client';
 
 import { useCart } from "../context/CartContext";
+import { toast } from "sonner";
 
 
 type Product = {
@@ -15,13 +16,14 @@ type Product = {
 
 
 
-
-
 export default function AddToCartButton({ product }: { product: Product }) {
     const { addToCart } = useCart();
     
     return (
-        <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium" onClick={() => addToCart(product)}>
+        <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium" onClick={() => {
+          addToCart(product);
+          toast.success("Added to cart!");
+        }}>
             Add to Cart
         </button>
     );

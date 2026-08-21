@@ -72,9 +72,9 @@ export default function FeaturedProductsSection({ products }: { products: Produc
               <div className="mt-5 flex items-center justify-between">
                 <div>
                   <span className="text-2xl font-bold text-gray-900">
-                    ${product.price}
+                    GHC{product.price}
                   </span>
-                  <span className="text-sm text-gray-400 ml-1">USD</span>
+                  <span className="text-sm text-gray-400 ml-1">CEDIS</span>
                 </div>
                 <Link
                   href={`/products/${product.id}`}

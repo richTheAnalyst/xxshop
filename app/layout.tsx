@@ -6,6 +6,7 @@ import Footer from "./components/footer";
 import { CartProvider } from "./context/CartContext";
 import RegisterPage from "./auth/register/page";
 import LoginPage from "./auth/login/page";
+import { Toaster } from "sonner";
 
 
 const geistSans = Geist({
@@ -36,14 +37,13 @@ export default function RootLayout({
     >
      
       <body className="min-h-full flex flex-col">
-
-        
          <CartProvider>
           <Navbar />
             {children}
           </CartProvider>
         <Footer />
-        </body>
+        <Toaster position="top-right" richColors />
+      </body>
     </html>
   );
 }

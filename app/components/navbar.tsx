@@ -26,7 +26,7 @@ export default async function Navbar() {
               </span>
             </Link>
 
-            {/* Desktop Navigation – with animated underline */}
+            {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-8">
               <ul className="flex space-x-8">
                 {[

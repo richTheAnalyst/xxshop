@@ -58,9 +58,9 @@ export default function MobileMenu({ isAuthenticated }: { isAuthenticated: boole
             {/* Conditional content based on auth status */}
             {isAuthenticated ? (
               <>
-                {/* Cart Link - fixed incorrect href */}
+                {/* Cart Link */}
                 <MobileNavLink
-                  href="/cart"
+                  href="/products/add-to-cart"
                   icon={<ShoppingCart className="h-5 w-5" />}
                   onClick={() => setIsOpen(false)}
                 >
